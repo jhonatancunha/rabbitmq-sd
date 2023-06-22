@@ -53,14 +53,22 @@ function publishMessage() {
                 case 2:
                     channel_1 = _a.sent();
                     callbackMessage = function (topic, message) { return __awaiter(_this, void 0, void 0, function () {
+                        var error_2;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4, channel_1.assertQueue(topic)];
+                                case 0:
+                                    _a.trys.push([0, 2, , 3]);
+                                    return [4, channel_1.assertQueue(topic)];
                                 case 1:
                                     _a.sent();
                                     console.log("Mensagem publicada com sucesso na fila: ".concat(topic, "."));
                                     channel_1.sendToQueue(topic, Buffer.from(JSON.stringify(message)));
-                                    return [2];
+                                    return [3, 3];
+                                case 2:
+                                    error_2 = _a.sent();
+                                    console.log("error", error_2);
+                                    return [3, 3];
+                                case 3: return [2];
                             }
                         });
                     }); };
@@ -71,7 +79,7 @@ function publishMessage() {
                         });
                     }); };
                     (0, process_csv_1.processCSV)({
-                        csvPath: "tweets.csv",
+                        csvPath: "tweets_db.csv",
                         callbackMessage: callbackMessage,
                         callbackFinish: callbackFinish,
                     });

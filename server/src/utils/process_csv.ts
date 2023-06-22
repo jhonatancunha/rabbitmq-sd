@@ -5,7 +5,7 @@ const csv = require("csv-parser");
 
 interface IProcessCSV {
     csvPath: string;
-    callbackMessage: (topic: string, msg: IMessage) => void;
+    callbackMessage:  (topic: string, msg: IMessage) => Promise<void>;
     callbackFinish: () => void;
 }
 
@@ -16,7 +16,7 @@ export const processCSV = ({
 }: IProcessCSV) => {
     fs.createReadStream(csvPath)
         .pipe(csv())
-        .on("data", (row) => {
+        .on("data", async (row) => {
             const text = row.text;
             const name = row.name;
             const topics = Object.keys(rabbitMQTopics);
@@ -42,7 +42,7 @@ export const processCSV = ({
             });
 
             if (bestGuess) {
-                callbackMessage(bestGuess, valueBestGuess);
+                await callbackMessage(bestGuess, valueBestGuess);
             }
         })
         .on("end", () => {

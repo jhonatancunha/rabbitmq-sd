@@ -14,28 +14,25 @@ async function publishMessage() {
         const channel = await connection.createChannel();
 
         const callbackMessage = async (topic, message: IMessage) => {
-            await channel.assertQueue(topic);
-            console.log(`Mensagem publicada com sucesso na fila: ${topic}.`);
-            channel.sendToQueue(topic, Buffer.from(JSON.stringify(message)));
+            try{
+                await channel.assertQueue(topic);
+                console.log(`Mensagem publicada com sucesso na fila: ${topic}.`);
+                channel.sendToQueue(topic, Buffer.from(JSON.stringify(message)));
+            }catch(error){
+                console.log("error", error)
+            }
         };
 
         const callbackFinish = async () => {
-            // await channel.close();
-            // await connection.close();
             console.log("Acabou de processar todos os tweets.");
         };
 
+
         processCSV({
-            csvPath: "tweets.csv",
+            csvPath: "tweets_db.csv",
             callbackMessage,
             callbackFinish,
         });
-
-        // processCSV({
-        //     csvPath: "tweets_db2.csv",
-        //     callbackMessage,
-        //     callbackFinish,
-        // });
     } catch (error) {
         console.error("Error:", error);
     }

@@ -1,17 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.rabbitMQTopics = exports.checkMessage = void 0;
-var toxicity = require("@tensorflow-models/toxicity");
 var checkMessage = function (topic, text) {
     var keywords = exports.rabbitMQTopics[topic];
     var regex = new RegExp("\\b(".concat(keywords.join("|"), ")\\b"), "gi");
     var matches = text.match(regex);
-    var threshold = 0.9;
-    toxicity.load(threshold, keywords).then(function (model) {
-        model.classify([text]).then(function (predictions) {
-            console.log("predictions: " + predictions);
-        });
-    });
     return matches;
 };
 exports.checkMessage = checkMessage;
