@@ -46,7 +46,7 @@ function publishMessage() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4, amqp.connect('amqp://utfpr:sistemas_distribuidos@localhost:5672')];
+                    return [4, amqp.connect("amqp://utfpr:sistemas_distribuidos@localhost:5672")];
                 case 1:
                     connection = _a.sent();
                     return [4, connection.createChannel()];
@@ -66,24 +66,19 @@ function publishMessage() {
                     }); };
                     callbackFinish = function () { return __awaiter(_this, void 0, void 0, function () {
                         return __generator(this, function (_a) {
-                            console.log('Acabou de processar todos os tweets.');
+                            console.log("Acabou de processar todos os tweets.");
                             return [2];
                         });
                     }); };
                     (0, process_csv_1.processCSV)({
-                        csvPath: "tweets_db1.csv",
-                        callbackMessage: callbackMessage,
-                        callbackFinish: callbackFinish,
-                    });
-                    (0, process_csv_1.processCSV)({
-                        csvPath: "tweets_db2.csv",
+                        csvPath: "tweets.csv",
                         callbackMessage: callbackMessage,
                         callbackFinish: callbackFinish,
                     });
                     return [3, 4];
                 case 3:
                     error_1 = _a.sent();
-                    console.error('Error:', error_1);
+                    console.error("Error:", error_1);
                     return [3, 4];
                 case 4: return [2];
             }

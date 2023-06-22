@@ -1,14 +1,12 @@
-
 export const checkMessage = (topic: string, text: string) => {
-    const keywords = rabbitMQTopics[topic]
+    const keywords = rabbitMQTopics[topic];
     const regex = new RegExp(`\\b(${keywords.join("|")})\\b`, "gi");
     const matches = text.match(regex);
     return matches;
-}
-
+};
 
 export const rabbitMQTopics = {
-    "sports": [
+    sports: [
         "Football",
         "Basketball",
         "Baseball",
@@ -70,9 +68,9 @@ export const rabbitMQTopics = {
         "Bowls",
         "Croquet",
         "Dodgeball",
-        "Quidditch"
+        "Quidditch",
     ],
-    "health": [
+    health: [
         "Vaccine",
         "Immunization",
         "Vaccination",
@@ -131,9 +129,9 @@ export const rabbitMQTopics = {
         "Endemic",
         "Pandemic",
         "Vaccination Rate",
-        "Vaccination Strategies"
+        "Vaccination Strategies",
     ],
-    "programming": [
+    programming: [
         // Web Development
         "HTML",
         "CSS",
@@ -223,6 +221,6 @@ export const rabbitMQTopics = {
         "Package Managers",
         "Technical Debt",
         "Code Quality",
-        "Clean Code"
-    ]
-}
+        "Clean Code",
+    ],
+};
