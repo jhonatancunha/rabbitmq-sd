@@ -1,0 +1,14 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3.9.4-management
+    ports:
+      - 5672:5672  # RabbitMQ porta padrão
+      - 15672:15672  # RabbitMQ management plugin port
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=utfpr
+      - RABBITMQ_DEFAULT_PASS=sistemas_distribuidos
+volumes:
+  rabbitmq_data:
