@@ -1,3 +1,14 @@
+// Descrição: Função para classificar mensagem do tweet
+// Autor: Jhonatan Cunha e Jessé Pires
+// Data de criação: 21/06/2023
+// Última atualização: 22/06/2023
+
+/**
+ * Verifica se um texto contém palavras-chave relacionadas a um determinado tópico.
+ * @param {string} topic - O tópico a ser verificado.
+ * @param {string} text - O texto a ser verificado.
+ * @returns {string[]} Um array contendo as palavras-chave encontradas no texto.
+ */
 export const checkMessage = (topic: string, text: string) => {
     const keywords = rabbitMQTopics[topic];
     const regex = new RegExp(`\\b(${keywords.join("|")})\\b`, "gi");
@@ -5,6 +16,7 @@ export const checkMessage = (topic: string, text: string) => {
     return matches;
 };
 
+// Dicionário de tópicos e suas palavras-chave
 export const rabbitMQTopics = {
     sports: [
         "Football",
