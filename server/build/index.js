@@ -53,23 +53,21 @@ function publishMessage() {
                 case 2:
                     channel_1 = _a.sent();
                     callbackMessage = function (topic, message) { return __awaiter(_this, void 0, void 0, function () {
-                        var error_2;
+                        var exchange, msg;
                         return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    _a.trys.push([0, 2, , 3]);
-                                    return [4, channel_1.assertQueue(topic)];
-                                case 1:
-                                    _a.sent();
-                                    console.log("Mensagem publicada com sucesso na fila: ".concat(topic, "."));
-                                    channel_1.sendToQueue(topic, Buffer.from(JSON.stringify(message)));
-                                    return [3, 3];
-                                case 2:
-                                    error_2 = _a.sent();
-                                    console.log("error", error_2);
-                                    return [3, 3];
-                                case 3: return [2];
+                            try {
+                                exchange = 'topic_logs';
+                                msg = Buffer.from(JSON.stringify(message));
+                                channel_1.assertExchange(exchange, 'topic', {
+                                    durable: false
+                                });
+                                channel_1.publish(exchange, topic, msg);
+                                console.log("Mensagem publicada com sucesso na fila: ".concat(topic, "."));
                             }
+                            catch (error) {
+                                console.log("error", error);
+                            }
+                            return [2];
                         });
                     }); };
                     callbackFinish = function () { return __awaiter(_this, void 0, void 0, function () {

@@ -26,9 +26,16 @@ async function publishMessage() {
         // Função que será invocada quando uma mensagem for classificada
         const callbackMessage = async (topic, message: IMessage) => {
             try{
-                await channel.assertQueue(topic);
+                var exchange = 'topic_logs';
+                const msg = Buffer.from(JSON.stringify(message));
+
+                channel.assertExchange(exchange, 'topic', {
+                    durable: false
+                });
+
+                channel.publish(exchange, topic, msg);
+
                 console.log(`Mensagem publicada com sucesso na fila: ${topic}.`);
-                channel.sendToQueue(topic, Buffer.from(JSON.stringify(message)));
             }catch(error){
                 console.log("error", error)
             }
