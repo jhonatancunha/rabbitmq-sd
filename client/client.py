@@ -28,7 +28,7 @@ def main():
     # Estabelece uma conexão com o RabbitMQ
     connection = pika.BlockingConnection(pika.URLParameters("amqp://utfpr:sistemas_distribuidos@localhost:5672"))
     channel = connection.channel()
-    channel.exchange_declare(exchange='topic_logs', exchange_type='topic')
+    channel.exchange_declare(exchange='topic_logs', exchange_type='topic', durable=False)
 
     result = channel.queue_declare('', exclusive=True)
     queue_name = result.method.queue
